@@ -24,14 +24,14 @@ pre-compiled binaries or you can compile it by yourself. You can start with
 the [free version](http://litesync.io/en/download.html).
 
 
-## Installing with pip
+### Installing with pip
 
 ```
 pip install litesync
 ```
 
 
-## Cloning and Building
+### Cloning and Building
 
 Optionally you can clone the repo and build it:
 
@@ -45,7 +45,7 @@ python3 setup.py build install
 Usage
 -----
 
-```
+```python
 import litesync
 import json
 import time
