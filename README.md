@@ -40,3 +40,25 @@ git clone --depth=1 https://gitlab.com/litesync/litesync-python3
 cd litesync-python3
 python3 setup.py build install
 ```
+
+
+Usage
+-----
+
+```
+import litesync
+import json
+import time
+
+conn = litesync.connect('file:app.db?node=secondary&connect=tcp://server:port')
+
+# check if the db is ready
+while True:
+    result = conn.cursor().execute("PRAGMA sync_status").fetchone()
+    status = json.loads(result[0])
+    if status["db_is_ready"]: break
+    time.sleep(0.250)
+
+# now we can use the db connection
+...
+```
