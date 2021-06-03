@@ -38,5 +38,5 @@ Optionally you can clone the repo and build it:
 ```
 git clone --depth=1 https://gitlab.com/litesync/litesync-python3
 cd litesync-python3
-python setup.py build
+python3 setup.py build install
 ```
