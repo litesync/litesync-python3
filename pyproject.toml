@@ -30,8 +30,18 @@ skip = "*-win32"
 
 [tool.cibuildwheel.macos]
 before-build = """
-curl -O https://litesync.io/download/litesync-free-mac-x86_64.tar.gz
-tar -xzvf litesync-free-mac-x86_64.tar.gz
-./install
+ARCH=$(uname -m)
+if [ "$ARCH" == "x86_64" ]; then
+  curl -O https://litesync.io/download/litesync-free-mac-x86_64.tar.gz
+  tar -xzvf litesync-free-mac-x86_64.tar.gz
+  ./install
+elif [ "$ARCH" == "arm64" ]; then
+  curl -O https://litesync.io/download/litesync-free-mac-arm64.tar.gz
+  tar -xzvf litesync-free-mac-arm64.tar.gz
+  sudo ./install
+else
+  echo "Unknown architecture: $ARCH"
+  exit 1
+fi
 """
 repair-wheel-command = "delocate-wheel --require-archs {delocate_archs} --exclude liblitesync.0.dylib -w {dest_dir} -v {wheel}"

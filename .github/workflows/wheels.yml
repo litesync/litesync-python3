@@ -13,7 +13,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        # macos-13 = x86_64, macos-14 = arm64
+        os: [ubuntu-latest, windows-latest, macos-13, macos-14]
 
     steps:
       - uses: actions/checkout@v3
@@ -24,28 +25,12 @@ jobs:
           python-version: 3.12
 
       - name: Install build dependencies
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt-get update
-          wget https://litesync.io/download/litesync-free-linux-x86_64.tar.gz
-          tar -xzvf litesync-free-linux-x86_64.tar.gz
-          sudo ./install
-
-      - name: Install build dependencies
         shell: pwsh
         if: matrix.os == 'windows-latest'
         run: |
           curl -O https://litesync.io/download/litesync-free-windows-x86_64.tar.gz
           tar -xzvf litesync-free-windows-x86_64.tar.gz
           .\install.bat
-
-      - name: Install build dependencies
-        if: matrix.os == 'macos-latest'
-        run: |
-          brew update
-          wget https://litesync.io/download/litesync-free-mac-x86_64.tar.gz
-          tar -xzvf litesync-free-mac-x86_64.tar.gz
-          ./install
 
       - name: Upgrade pip
         run: python3 -m pip install --upgrade pip
