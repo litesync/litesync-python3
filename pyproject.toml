@@ -9,7 +9,6 @@ library_dirs = ["/usr/local/lib", "C:\\Windows\\System32"]
 [tool.cibuildwheel]
 build = "cp37* cp38* cp39* cp310* cp311* cp312*"
 build-verbosity = 3
-repair-wheel-command = ""
 
 [tool.cibuildwheel.linux]
 before-build = """
@@ -19,6 +18,7 @@ tar -xzvf litesync-free-linux-x86_64.tar.gz
 """
 build = "cp37-manylinux_x86_64 cp38-manylinux_x86_64 cp39-manylinux_x86_64 cp310-manylinux_x86_64 cp311-manylinux_x86_64 cp312-manylinux_x86_64"
 #skip = "*_ppc64le *_s390x"
+repair-wheel-command = "auditwheel repair --exclude liblitesync.so -w {dest_dir} {wheel}"
 
 [tool.cibuildwheel.windows]
 before-build = """
@@ -34,3 +34,4 @@ curl -O https://litesync.io/download/litesync-free-mac-x86_64.tar.gz
 tar -xzvf litesync-free-mac-x86_64.tar.gz
 ./install
 """
+repair-wheel-command = "delocate-wheel --require-archs {delocate_archs} --exclude liblitesync.0.dylib -w {dest_dir} -v {wheel}"
