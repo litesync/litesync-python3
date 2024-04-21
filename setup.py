@@ -13,7 +13,7 @@ from setuptools import Extension
 # If you need to change anything, it should be enough to change setup.cfg.
 
 PACKAGE_NAME = 'litesync'
-VERSION = '0.5.0'
+VERSION = '0.5.1'
 
 # define sqlite sources
 sources = [os.path.join('src', source)
@@ -63,7 +63,7 @@ def get_setup_args():
         author_email="contact@litesync.io",
         license="zlib/libpng",
         platforms="ALL",
-        url="https://gitlab.com/litesync/litesync-python3",
+        url="https://github.com/litesync/litesync-python3",
         package_dir={PACKAGE_NAME: "litesync"},
         packages=packages,
         ext_modules=[Extension(
